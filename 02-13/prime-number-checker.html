@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function onPageLoad() {
+        // add event listener to the button
+        const buttonElement = document.querySelector("button");
+​
+        buttonElement.addEventListener("click", handleOnClick);
+      }
+​
+      function handleOnClick() {
+        // grab the input value
+        const value = document.querySelector("input").value;
+​
+        const message = getMessage(value);
+​
+        document.querySelector(".message").textContent = message;
+      }
+​
+      function getMessage(value) {
+        // make sure the input value is an integer
+        const isInteger =
+          !Number.isNaN(Number(value)) && Number.isInteger(Number(value));
+​
+        if (!isInteger) {
+          return "Please input an integer";
+        }
+​
+        const isPrime = getIsPrime(Number(value));
+        // make sure the input value is a prime number
+        // based on prime or not show message
+        if (isPrime) {
+          return `${value} is prime`;
+        } else {
+          return `${value} is NOT prime. Try again!`;
+        }
+      }
+​
+      function getIsPrime(value) {
+        for (let i = 2; i < Math.abs(value) - 1; i++) {
+          const isFail = value % i === 0;
+​
+          if (isFail) {
+            return false;
+          }
+        }
+        return true;
+      }
+​
+      window.onload = onPageLoad;
+    </script>
+  </head>
+  <body>
+    <input type="number" placeholder="input an integer" />
+    <button>Check if number is a prime number</button>
+    <div class="message"></div>
+  </body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      let shoppingCart = {};
+
+      function onPageLoad() {
+        makeButtonWork();
+      }
+
+      function makeButtonWork() {
+        const buttonElement = document.querySelector("button");
+
+        buttonElement.addEventListener("click", handleOnClick);
+      }
+
+      function handleOnClick() {
+        // get the inputs
+        const name = document.querySelector(".item-name").value ?? "";
+        const cost = Number(document.querySelector(".item-cost").value) ?? 0;
+        const amount =
+          Number(document.querySelector(".item-amount").value) ?? 0;
+
+        const isValidInput = name && cost > 0 && amount > 0;
+
+        if (isValidInput) {
+          shoppingCart = {
+            ...shoppingCart,
+            [name]: { amount, cost },
+          };
+        }
+        // add to shoppingCart object
+        // display the table
+        // display the total cost
+        displayTheTable();
+        displayTheTotalCost();
+      }
+
+      function displayTheTable() {
+        let tableHtml = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            name
+                        </th>
+                        <th>
+                            cost
+                        </th>
+                        <th>
+                            amount
+                        </th>
+                    </tr>
+                </thead>
+
+
+        `;
+
+        tableHtml += `<tbody>`;
+
+        for (let itemName in shoppingCart) {
+          const cost = shoppingCart[itemName].cost;
+          const amount = shoppingCart[itemName].amount;
+
+          tableHtml += `
+                <tr>
+                    <td>${itemName}</td>
+                    <td>${cost}</td>
+                    <td>${amount}</td>
+                </tr>
+
+            `;
+        }
+
+        tableHtml += `</tbody>`;
+        tableHtml += `</table>`;
+
+        document.querySelector(".table-ctn").innerHTML = tableHtml;
+      }
+
+      function displayTheTotalCost() {
+        let totalCost = 0;
+
+        for (let itemName in shoppingCart) {
+          const cost = shoppingCart[itemName].cost;
+          const amount = shoppingCart[itemName].amount;
+
+          totalCost += cost * amount;
+        }
+
+        document.querySelector(".total-cost").textContent = totalCost;
+      }
+
+      window.onload = onPageLoad;
+    </script>
+  </head>
+  <body>
+    <input type="text" placeholder="item name" class="item-name" />
+    <input type="number" placeholder="cost of item" class="item-cost" />
+    <input type="number" placeholder="number of items" class="item-amount" />
+    <button>Add Item</button>
+    <div class="table-ctn"></div>
+
+    <label>Total Cost in $</label>
+    <div class="total-cost"></div>
+  </body>
+</html>

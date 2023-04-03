@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script>
+    function showSum() {
+      // grab the first number
+      const firstNumber = Number(
+        document.querySelector('input[name="first"]').value
+      );
+      const secondNumber = Number(
+        document.querySelector('input[name="second"]').value
+      );
+      const sum = firstNumber + secondNumber;
+      // grab the second number
+      // add them together
+      // show that on the page
+      const elementToShowStuff = document.querySelector(".sum");
+
+      elementToShowStuff.textContent = sum;
+    }
+  </script>
+  <body>
+    <input type="number" name="first" />
+    <span> + </span>
+    <input type="number " name="second" />
+    <button onclick="showSum()">=</button>
+    <div class="sum"></div>
+  </body>
+</html>

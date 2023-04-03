@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function onPageLoad() {
+        // bind the click event listener to the button
+        bindEventListenerToButton();
+      }
+
+      function bindEventListenerToButton() {
+        const button = document.querySelector("button");
+        button.addEventListener("click", handleOnClick);
+      }
+
+      function handleOnClick() {
+        // grab the input value
+        const inputValue = document.querySelector("input").value;
+
+        const message = getMessage(inputValue);
+        // check if it's a palindrome
+        // get message based on palindrome or not
+        // display the message
+        displayMessage(message);
+      }
+
+      function getMessage(inputValue) {
+        const isPalindrome = getIsPalindrome(inputValue);
+
+        if (isPalindrome) {
+          return `${inputValue} is a palindrome!`;
+        } else {
+          return "Try again!";
+        }
+      }
+
+      function getIsPalindrome(inputValue) {
+        // palindrome, is the same forward and backwards
+        for (let i = 0; i < inputValue.length / 2; i++) {
+          const leftCharacter = inputValue[i];
+          const rightCharacter = inputValue[inputValue.length - 1 - i];
+          const isFailed = leftCharacter !== rightCharacter;
+
+          if (isFailed) {
+            return false;
+          }
+        }
+        return true;
+      }
+
+      /*
+      function getIsPalindrome(inputValue) {
+        // palindrome, is the same forward and backwards
+        const reversedInputValue = inputValue.split('').reverse().join('')
+
+        return inputValue === reversedInputValue;
+      }
+      */
+
+      function displayMessage(message) {
+        document.querySelector(".message").textContent = message;
+      }
+
+      window.onload = onPageLoad;
+    </script>
+  </head>
+  <body>
+    <input type="text" placeholder="input a palindrome" />
+    <button>Check if input is a palindrome</button>
+    <div class="message"></div>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img {
+            position: relative;
+            width: 200px;
+        }
+
+        .container {
+            width: 100vw;
+            height: 500px;
+        }
+
+    </style>
+    <script>
+
+        let currentPosition = {
+            top: 0,
+            left: 0,
+            topChange: 5,
+            leftChange: 5 
+        }
+
+        function onPageLoad() {
+            makeImageBounceAround()
+        }
+
+        function makeImageBounceAround() {
+            const imageElement = document.querySelector('img');
+
+            setInterval(() => {
+                moveImage();
+            }, 100);
+        }
+
+
+        function moveImage() {
+            const imageElement = document.querySelector('img');
+            const newTopChange = getNewTopChange();
+            const newLeftChange = getNewLeftChange();
+
+            currentPosition = {
+                top: currentPosition.top + newTopChange,
+                left: currentPosition.left + newLeftChange,
+                topChange: newTopChange,
+                leftChange: newLeftChange
+            }
+
+            imageElement.style.top = `${currentPosition.top}px`;
+            imageElement.style.left = `${currentPosition.left}px`;
+        }
+
+        function getNewTopChange() {
+            if(currentPosition.top <= 0) {
+                return 5
+            } else if(currentPosition.top > 500) {
+                return -5;
+            } else {
+                return currentPosition.topChange;
+            }
+        }
+
+        function getNewLeftChange() {
+            if(currentPosition.left <= 0) {
+                return 5
+            } else if(currentPosition.left > 500) {
+                return -5;
+            } else {
+                return currentPosition.leftChange;
+            }
+        }
+
+        window.onload = onPageLoad;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <img src="./cat-image.png" />
+    </div>
+    
+</body>
+</html>

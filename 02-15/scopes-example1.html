@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      // Global Scope variables
+      name = "Scott";
+      nameAtBottomOfPage = "Scott, variable at bottom";
+      console.log("name", name);
+      console.log(nameAtBottomOfPage, "nameAtBottomOfPage");
+
+      var name;
+
+      // function scope
+      (function runForFunctionScope() {
+        name = "Scott in Function scope";
+        console.log("name", name);
+
+        var name;
+      })();
+
+      // function scope
+      (function runForBlockScope() {
+        // same as if...
+        // var name1;
+
+        name1 = "Scott in Function scope - part 2";
+
+        {
+          // it's as if...
+          // let name2;
+
+          console.log("name1", name1);
+          let name2 = " Scott in Block Scope";
+        }
+        console.log("name1", name1);
+        // this will break, because name2 is not in function scope, it's in the block scope
+        //console.log("name2", name2);
+
+        var name1;
+      })();
+
+      (function runForBlockScopeWithForLoop() {
+        // same as if...
+        // var i;
+
+        for (var i = 0; i < 10; i++) {}
+
+        for (let j = 0; j < 10; j++) {}
+
+        console.log("i", i);
+
+        // this line of code will break, because j is in the block scope
+        //console.log("j", j);
+      })();
+
+      // to show global scope continued.
+      var nameAtBottomOfPage;
+
+      // Lexical Scope
+
+      (function exampleOfLexicalScope(param1) {
+        const allLowerCase = param1.toLocaleLowerCase();
+        function innerFunctionToCall() {
+          const allUpperCase = param1.toUpperCase();
+          console.log(param1, allLowerCase, allUpperCase);
+        }
+
+        innerFunctionToCall();
+      })("Something Passed In");
+    </script>
+  </head>
+  <body></body>
+</html>

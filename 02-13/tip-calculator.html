@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function handleOnClickButton() {
+        // get the first number, aka the bill
+        const bill = Number(document.querySelector(".bill").value);
+        // get the second number, aka the percentage
+        const percentage = Number(document.querySelector(".percentage").value);
+        // calculate the amount
+        const totalCost = bill * (percentage / 100 + 1);
+        // display the result of the calculation
+        document.querySelector(".total-cost").textContent = totalCost;
+      }
+    </script>
+  </head>
+  <body>
+    <input type="number" placeholder="bill" class="bill" />
+    <input type="number" placeholder="tip percentage" class="percentage" />
+    <button onclick="handleOnClickButton()">Calculate</button>
+    <label>Total Cost</label>
+    <div class="total-cost"></div>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      let comments = [];
+
+      function onPageLoad() {
+        // add button listener
+        makeButtonWork();
+      }
+
+      function makeButtonWork() {
+        const buttonElement = document.querySelector("button");
+
+        buttonElement.addEventListener("click", handleOnClick);
+      }
+
+      function handleOnClick() {
+        // grab the input for the username
+        const username = document.querySelector("input").value;
+        // grab the input for the text area
+        const comment = document.querySelector("textarea").value;
+        // then display
+        addNewComment(username, comment);
+      }
+
+      function addNewComment(username, comment) {
+        comments.push({
+          username,
+          comment,
+        });
+
+        renderComments();
+      }
+
+      function renderComments() {
+        const commentsElement = document.querySelector(".comments");
+        let newInnerHTML = "";
+        comments.forEach((commentItem) => {
+          const { username, comment } = commentItem;
+          newInnerHTML += `<li>${username} -\n${comment}</li>`;
+        });
+
+        commentsElement.innerHTML = newInnerHTML;
+      }
+
+      window.onload = onPageLoad;
+    </script>
+  </head>
+  <body>
+    <input type="text" placeholder="username" />
+    <br />
+    <textarea placeholder="input comment here!"></textarea>
+    <br />
+    <button>Add Comment</button>
+    <br />
+    <section>
+      <ul class="comments"></ul>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      // object orienteed Way
+
+      class Person {
+        constructor(name) {
+          this.name = name;
+          this.comments = [];
+        }
+
+        getName() {
+          return this.name;
+        }
+
+        getComments() {
+          return this.comments;
+        }
+
+        addComment(comment) {
+          this.comments.push(comment);
+        }
+      }
+
+      const person1 = new Person("Scott1");
+
+      person1.addComment("Scott 1 - 1st comment");
+      person1.addComment("Scott 1 - 2nd comment");
+
+      console.log(person1, person1.getName(), person1.getComments());
+
+      // Functional Programming Approach
+
+      const person2 = getPerson("Scott2");
+
+      person2.addComment("Scott2 - 1st comment");
+      person2.addComment("Scott2 - 2nd comment");
+
+      function getPerson(name) {
+        const comments = [];
+        return {
+          getName: () => name,
+          getComments: () => comments,
+          addComment: (comment) => {
+            comments.push(comment);
+          },
+        };
+      }
+
+      console.log(person2, person2.getName(), person2.getComments());
+    </script>
+  </head>
+  <body></body>
+</html>
