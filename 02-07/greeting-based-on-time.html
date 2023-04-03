@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function showGreeting() {
+        // get input from input element
+        const inputValue = getInputValue();
+        // get the message based on the input
+        const message = getMessageFromInputValue(inputValue);
+        // show the message
+        writeMessageToPage(message);
+        console.log(message);
+      }
+
+      function writeMessageToPage(message) {
+        // grab the element to write to
+        const element = document.getElementById("show-greeting");
+        // add the message to that element
+        element.textContent = message;
+      }
+
+      function getInputValue() {
+        return Number(document.querySelector("input").value);
+      }
+      //       “Good Morning” if input is between 0-12
+      // “Good Afternoon” if input is between 13-16
+      // “Good Evening” if input is between 17-19
+      // “Good Night” if input is between 20-24
+
+      function getMessageFromInputValue(input) {
+        const isMorning = input >= 0 && input < 12;
+        const isAfternoon = input >= 12 && input < 17;
+        const isEvening = input >= 17 && input < 20;
+        const isNight = input >= 20 && input < 24;
+
+        if (isMorning) {
+          return "Good Morning";
+        } else if (isAfternoon) {
+          return "Good Afternoon";
+        } else if (isEvening) {
+          return "Good Evening";
+        } else if (isNight) {
+          return "Good Night";
+        } else {
+          return "Input must be 0 (inclusive) to 24 (exclusive)";
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <input type="number" />
+    <button onclick="showGreeting()">Show Greeting</button>
+    <div id="show-greeting"></div>
+  </body>
+</html>

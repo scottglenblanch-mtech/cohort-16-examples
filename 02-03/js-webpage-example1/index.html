@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Webpage Example 1</title>
+    <style>
+      #box {
+        width: 500px;
+        height: 500px;
+        background: blue;
+      }
+    </style>
+    <script>
+      function changeColor() {
+        // get the box
+        // get the box via the id
+        var id = "box";
+        var boxElement = document.getElementById(id);
+        var bgColor = boxElement.style.backgroundColor;
+        var newBgColor = bgColor === "red" ? "blue" : "red";
+
+        boxElement.style.backgroundColor = newBgColor;
+        // change the style of the box
+      }
+
+      console.log(5 == "5");
+      console.log(5 === "5");
+    </script>
+  </head>
+  <body>
+    <div id="box"></div>
+    <button onclick="changeColor()">Change Color</button>
+  </body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function showGreeting() {
+        // get input from input element
+        const inputValue = getInputValue();
+        // get the message based on the input
+        const message = getMessageFromInputValue(inputValue);
+        // show the message
+        writeMessageToPage(message);
+      }
+
+      function writeMessageToPage(message) {
+        // grab the element to write to
+        const element = document.getElementById("show-greeting");
+        // add the message to that element
+        element.textContent = message;
+      }
+
+      function getInputValue() {
+        return Number(document.querySelector("input").value);
+      }
+      //       “Good Morning” if input is between 0-12
+      // “Good Afternoon” if input is between 13-16
+      // “Good Evening” if input is between 17-19
+      // “Good Night” if input is between 20-24
+
+      function getMessageFromInputValue(input) {
+        const isMorning = input >= 0 && input < 12;
+        const isAfternoon = input >= 12 && input < 17;
+        const isEvening = input >= 17 && input < 20;
+        const isNight = input >= 20 && input < 24;
+
+        if (isMorning) {
+          return "Good Morning";
+        } else if (isAfternoon) {
+          return "Good Afternoon";
+        } else if (isEvening) {
+          return "Good Evening";
+        } else if (isNight) {
+          return "Good Night";
+        } else {
+          return "Input must be 0 (inclusive) to 24 (exclusive)";
+        }
+      }
+
+      function onPageLoad() {
+        showCurrentDate();
+        showCurrentTimeInHours();
+      }
+
+      function showCurrentDate() {
+        const now = new Date();
+
+        const dayOfMonth = now.getDate();
+
+        const month = getMonthAsWord();
+        const year = now.getFullYear();
+
+        const displayDate = year + "-" + month + "-" + dayOfMonth;
+        const elementToWriteOn = document.getElementById("show-date");
+
+        elementToWriteOn.textContent = displayDate;
+      }
+
+      function getMonthAsWord() {
+        const now = new Date();
+        const monthAsNumber = now.getMonth();
+        let month;
+        switch (monthAsNumber) {
+          case 0:
+            month = "January";
+            break;
+          case 1:
+            month = "February";
+            break;
+          case 2:
+            month = "March";
+            break;
+          case 3:
+            month = "April";
+            break;
+          case 4:
+            month = "May";
+            break;
+          case 5:
+            month = "June";
+            break;
+          case 6:
+            month = "July";
+            break;
+
+          case 7:
+            month = "August";
+            break;
+
+          case 8:
+            month = "September";
+            break;
+
+          case 9:
+            month = "October";
+            break;
+
+          case 10:
+            month = "November";
+            break;
+
+          case 11:
+            month = "December";
+            break;
+          default:
+            month = "not found";
+            break;
+          // this was my bug. needs to be outside of switch case return month;
+        }
+        return month;
+      }
+
+      function showCurrentTimeInHours() {
+        // get the current time in hours of right now
+        const currentTimeInHours = getCurrentTimeInHours();
+        // get the message based on that time
+        const message = getMessageFromInputValue(currentTimeInHours);
+        // show that message
+        writeMessageToPage(message);
+      }
+
+      function getCurrentTimeInHours() {
+        const nowAsDate = new Date();
+
+        return nowAsDate.getHours();
+      }
+
+      window.onload = onPageLoad;
+    </script>
+  </head>
+  <body>
+    <div id="show-date"></div>
+    <input type="number" />
+    <button onclick="showGreeting()">Show Greeting</button>
+    <div id="show-greeting"></div>
+  </body>
+</html>

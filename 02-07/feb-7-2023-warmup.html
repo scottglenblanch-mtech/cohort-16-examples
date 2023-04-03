@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feburary 7 2023 Warmup</title>
+    <style>
+      body {
+        background: lightblue;
+      }
+
+      input {
+        display: block;
+        padding: 8px;
+        margin: 8px;
+      }
+
+      button {
+        margin: 8px;
+      }
+    </style>
+    <script>
+      function handleOnClick() {
+        // grab the text from username
+        const userNameText = document.querySelector(
+          'input[name="username"]'
+        ).value;
+        // grab the text from password
+        const passwordText = document.querySelector(
+          'input[name="password"]'
+        ).value;
+        // console.log the username and password
+        console.log(userNameText, passwordText);
+      }
+    </script>
+  </head>
+  <body>
+    <input type="text" name="username" placeholder="user name" />
+    <input type="password" name="password" placeholder="password" />
+    <button onclick="handleOnClick()">Click Here</button>
+  </body>
+</html>
