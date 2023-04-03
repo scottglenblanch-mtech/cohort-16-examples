@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Website</title>
+    <script>
+      function onPageLoad() {
+        // display the date
+
+        // display the weather
+        displayDate();
+        displayWeather().then(() => console.log("we are loaded!"));
+      }
+
+      function displayDate() {
+        const now = new Date().toLocaleDateString("en-us", {
+          weekday: "long",
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
+        const dateElement = document.querySelector("#date");
+
+        dateElement.textContent = now;
+      }
+
+      async function displayWeather() {
+        const weatherElement = document.querySelector("#weather");
+
+        weatherElement.textContent = await getWeatherText();
+      }
+
+      async function getWeatherText() {
+        const url =
+          "https://api.open-meteo.com/v1/forecast?latitude=40.39&longitude=-111.85&hourly=temperature_2m&current_weather=true&temperature_unit=fahrenheit";
+        const response = await fetch(url);
+        const data = await response.json();
+        const temperatureInFarenheit = data.hourly["temperature_2m"][0];
+        console.log("data", data);
+
+        return `${temperatureInFarenheit} degrees farenheit`;
+      }
+
+      window.onload = onPageLoad;
+    </script>
+  </head>
+  <body>
+    <div id="date"></div>
+    <div id="weather"></div>
+  </body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      let comments = [];
+
+      const FILTER_BY_TIMESTAMP = "filter-by-timestamp";
+      const FILTER_BY_USERNAME = "filter-by-username";
+      let filterBy = FILTER_BY_TIMESTAMP;
+
+      window.onload = onPageLoad;
+
+      function onPageLoad() {
+        // add button listener
+        makeButtonWork();
+        makeSelectDropdownWork();
+      }
+
+      function makeButtonWork() {
+        const buttonElement = document.querySelector("button");
+
+        buttonElement.addEventListener("click", handleOnClick);
+      }
+
+      function handleOnClick() {
+        // grab the input for the username
+        const username = document.querySelector("input").value;
+        // grab the input for the text area
+        const comment = document.querySelector("textarea").value;
+        // then display
+        addNewComment(username, comment);
+      }
+
+      function addNewComment(username, comment) {
+        comments.push({
+          username,
+          comment,
+          timeStamp: new Date(),
+        });
+
+        renderComments();
+      }
+
+      function renderComments() {
+        const commentsElement = document.querySelector(".comments");
+        let newInnerHTML = "";
+        comments.forEach((commentItem) => {
+          const { username, comment } = commentItem;
+          newInnerHTML += `<li>${username} -\n${comment}</li>`;
+        });
+
+        commentsElement.innerHTML = newInnerHTML;
+      }
+
+      function makeSelectDropdownWork() {
+        const selectElement = document.querySelector("select");
+
+        selectElement.addEventListener("change", handleSelectChangeEvent);
+      }
+
+      function handleSelectChangeEvent(e) {
+        const selectElement = document.querySelector("select");
+
+        filterBy = selectElement.value;
+        updateCommentsOrder();
+        renderComments();
+      }
+
+      function updateCommentsOrder() {
+        switch (filterBy) {
+          case FILTER_BY_TIMESTAMP:
+            comments.sort(sortByTimeStamp);
+            break;
+          case FILTER_BY_USERNAME:
+            comments.sort(sortByUsername);
+            break;
+          default:
+            console.error("issue with filterBy case");
+            break;
+        }
+      }
+
+      function sortByUsername(a, b) {
+        if (a.username === b.username) {
+          return 0;
+        } else if (a.username > b.username) {
+          return;
+          1;
+        } else {
+          return -1;
+        }
+      }
+
+      function sortByTimeStamp(a, b) {
+        return a.timeStamp - b.timeStamp;
+      }
+    </script>
+  </head>
+  <body>
+    <label>Order The Comments</label>
+    <select value="filter-by-timestamp">
+      <option value="filter-by-timestamp">Order by Timestamp</option>
+      <option value="filter-by-username">Order by Username</option>
+    </select>
+    <br />
+    <input type="text" placeholder="username" />
+    <br />
+    <textarea placeholder="input comment here!"></textarea>
+    <br />
+    <button>Add Comment</button>
+    <br />
+    <section>
+      <ul class="comments"></ul>
+    </section>
+  </body>
+</html>

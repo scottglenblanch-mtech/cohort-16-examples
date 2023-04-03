@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+
+        function onPageLoad() {
+            // bind the event listener to textarea
+            bindEventListenerToTextArea();
+        }
+
+        function bindEventListenerToTextArea() {
+            // get the element
+            const element = document.querySelector('textarea');
+            // add event listener
+            element.addEventListener('keydown', handleKeyDownOnTextArea);
+        }
+
+        function handleKeyDownOnTextArea() {
+            // get the value of the text area as a string
+
+            // do some calculations
+
+            const characterCount = getCharacterCount();
+            const wordCount = getWordCount();
+
+            // add the counts onto the page
+            // get the elements
+            // add to the elements
+
+            const showCharacterCountElement = document.querySelector('#show-character-count');
+            const showWordCountElement = document.querySelector('#show-word-count');
+
+            showCharacterCountElement.textContent = characterCount;
+            showWordCountElement.textContent = wordCount;
+
+        }
+
+        function getCharacterCount() {
+            const element = document.querySelector('textarea');
+            const userInput = element.value;
+
+            return userInput.length;
+
+        }
+
+        function getWordCount() {
+            const element = document.querySelector('textarea');
+            const userInput = element.value;
+
+            const wordArray = userInput.split(/\s+/g);
+            
+            return wordArray.length;
+
+        }
+
+        window.onload = onPageLoad;
+    </script>
+</head>
+<body>
+    <!--
+ My own word counter.
+Have a text area.
+
+Area below the text area that shows
+- number of characters
+- number of words
+
+'word' is group of characters with optionally one space before it. 
+
+When the user types the character and word count updates 
+
+-->
+
+<textarea></textarea>
+<div >
+    Number of characters: <span id="show-character-count">0</span>
+</div>
+<div>
+    Number of word: <span id="show-word-count">0</span>
+</div>
+
+</body>
+</html>

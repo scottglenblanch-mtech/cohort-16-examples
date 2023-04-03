@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        min-height: 100vh;
+      }
+
+      div {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+      }
+    </style>
+    <script>
+      /*
+- Make a webpage
+
+- Generate a box when a user clicks on the page. The color of the box will be random
+  - for example, if a user clicks on 3 different spots on the page, then 3 boxes will appear on that page
+
+*/
+
+      // got to hook up the click event
+      let boxList = [];
+
+      window.onload = onPageLoad;
+
+      function onPageLoad() {
+        document.body.addEventListener("click", handleClick);
+      }
+
+      function handleClick(event) {
+        // generate a random 'color'
+        const color = getRandomColor();
+        // get the click position
+        const x = event.clientX;
+        const y = event.clientY;
+
+        // create a 'box' object
+        // add in the color to the box object
+        // add the position
+        // add the box to the list of boxes
+        // add z index, based on the index in the array
+        const boxData = {
+          x,
+          y,
+          color,
+        };
+
+        // add boxData to boxList
+
+        boxList.push(boxData);
+
+        // render all boxes
+        renderBoxes();
+      }
+
+      function getRandomColor() {
+        const numbers0Thru9 = new Array(10).fill(0).map((x, i) => i);
+        const arrayOfHex = ["a", "b", "c", "d", "e", "f"];
+        const hexNumbers = [...numbers0Thru9, ...arrayOfHex];
+
+        let randomHex = "";
+
+        for (let i = 0; i < 6; i++) {
+          const randomPosition = Math.floor(Math.random() * hexNumbers.length);
+
+          randomHex += hexNumbers[randomPosition];
+        }
+
+        return "#" + randomHex;
+      }
+
+      function renderBoxes() {
+        document.body.innerHTML = "";
+        boxList.forEach((boxData, index) => {
+          const boxHtml = `
+            <div
+              style="
+                top: ${boxData.y}px;
+                left: ${boxData.x}px;
+                background: ${boxData.color};
+                z-index: ${index}
+              "
+            >
+
+            </div>  
+          
+          `;
+
+          document.body.innerHTML += boxHtml;
+        });
+      }
+    </script>
+  </head>
+  <body></body>
+</html>

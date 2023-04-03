@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wizarding World Censorship</title>
+    <script>
+
+        function onPageLoad() {
+            // bind the event listener to textarea
+            bindEventListenerToTextArea();
+        }
+
+        function bindEventListenerToTextArea() {
+            // get the element
+            const element = document.querySelector('textarea');
+            // add event listener
+            element.addEventListener('keydown', handleKeyDownOnTextArea);
+        }
+
+        function handleKeyDownOnTextArea() {
+
+            
+            const censoredMessageElement = document.querySelector('#show-censored-message');
+            const censoredMessage = getCensoredMessage();
+
+            censoredMessageElement.textContent = censoredMessage;
+        }
+
+        function getCensoredMessage() {
+            const element = document.querySelector('textarea');
+            const userInput = element.value;
+            const censoredMessage = userInput.replaceAll(/v[o0]ld[3e]?m[o0]rt/ig, 'he who must not be named');
+
+            return censoredMessage;
+
+        }
+
+
+        window.onload = onPageLoad;
+    </script>
+</head>
+<body>
+<!--
+  - Create a website, with a text area
+
+  - When the user types in phrase, the phrase will show up below the textarea
+    in a censored format. 
+
+  - Voldemort -> he who must not be named. 
+    - case insensitive
+-->
+
+<textarea></textarea>
+<div id="show-censored-message">
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      const validCharacters = ["(", ")", "{", "}", "[", "]"];
+      const leftCharacters = ['(', '[', '{']
+      const rightCharacters = [')', ']', '}']
+      const matchingCharacters = {
+        '(' : ')',
+        '[': ']',
+        '{': '}'
+      }
+
+
+      window.onload = onPageLoad;
+
+      function onPageLoad() {
+        // bind event listener to button click
+        addEventListenerToButton();
+        addEventListenerToInput();
+      }
+
+      function addEventListenerToInput() {
+        // only allow input values []{}()
+        const inputElement = document.querySelector("input");
+
+        inputElement.addEventListener("keyup", handleKeyUp);
+      }
+
+      function handleKeyUp(e) {
+        const keyPressed = e.key;
+        const isRemove = !validCharacters.includes(keyPressed);
+
+        if (isRemove) {
+          e.target.value = e.target.value.replace(keyPressed, "");
+        }
+      }
+
+      function addEventListenerToButton() {
+        const buttonElement = document.querySelector("button");
+
+        buttonElement.addEventListener("click", handleButtonClick);
+      }
+
+      function handleButtonClick() {
+        // get message from input
+
+        // determine if input is valid or not
+        const isValidInput = getIsValidInput();
+        const messageToShow = isValidInput ? 'is valid': 'not valid'
+
+        document.querySelector('.display-message').textContent = messageToShow;
+      }
+
+      function getIsValidInput() {
+        const inputValue = document.querySelector('input').value;
+        let previousLeftCharacters = []
+        for(let i = 0; i < inputValue.length; i++) {
+          const currentCharacter = inputValue[i]
+          const isLeftCharacter = leftCharacters.includes(currentCharacter)
+
+          if(isLeftCharacter) {
+            previousLeftCharacters.push(currentCharacter);
+          } else {
+            const mostRecentLeftCharacter = previousLeftCharacters.pop();
+            const isMatch = matchingCharacters[mostRecentLeftCharacter] === currentCharacter;
+            const isFail = !isMatch;
+
+            if(isFail) {
+              return false;
+            }
+
+          }
+
+        }
+
+        return true;
+      }
+    </script>
+  </head>
+  <body>
+    <input placeholder="input characters [,],{,},(,)" />
+    <button>Click to Validate input is balanced</button>
+    <div class="display-message"></div>
+  </body>
+</html>
